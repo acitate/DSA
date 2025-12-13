@@ -1,0 +1,30 @@
+#ifndef BINARY_TREE_HPP
+#define BINARY_TREE_HPP
+
+struct Node {
+    double value;
+    int count = 1;
+    Node* left = nullptr;
+    Node* right = nullptr;
+    Node* parent = nullptr;
+};
+
+class BinaryTree {
+    private:
+        Node* root = nullptr;
+        int size = 0;
+
+    public:
+        void insert(double value);
+        void remove(double value);
+        void print();
+
+        Node* get_min(Node* curr_root=nullptr);
+        Node* get_max(Node* curr_root=nullptr);
+
+        Node* search(double value);
+        Node* successor(Node* node);
+        Node* predecessor(Node* node);
+};
+
+#endif
