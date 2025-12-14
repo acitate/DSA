@@ -17,7 +17,7 @@ class BinaryTree {
     public:
         void insert(double value);
         void remove(double value);
-        void print();
+        void print(Node* curr_root=nullptr);
 
         Node* get_min(Node* curr_root=nullptr);
         Node* get_max(Node* curr_root=nullptr);
