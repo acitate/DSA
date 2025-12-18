@@ -9,7 +9,7 @@ typedef struct Node {
 Node* create(double data);
 
 void print(Node *node);
-
-void append(Node *node, double data);
+void append(Node **node, double data);
+void insert(Node **node, double data, int pos);
 
 #endif 

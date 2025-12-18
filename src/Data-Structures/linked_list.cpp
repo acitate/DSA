@@ -3,6 +3,12 @@
 #include <linked_list.hpp>
 
 
+/*
+ * Create new node with given data.
+ *
+ * @param data The double value to store in the node
+ * @return Pointer to newly created node
+ */
 Node *create(double data) {
     Node *new_node = (Node*) malloc(sizeof(Node));
 
@@ -13,23 +19,123 @@ Node *create(double data) {
 }
 
 
+/*
+ * Print all data in list from given head to tail
+ *
+ * @param node Pointer to first node in the list
+ * 
+ * Output format: "data1 data2 data3 ..."
+ * Prints "List empty." if node is null.
+ */
 void print(Node *node) {
-    if (node != NULL) {
+    if (node == NULL) {
+        printf("List empty.\n");
+    } else if (node->next != NULL) {
         printf("%f ", node->data);
         print(node->next);
+    } else {
+        printf("%f \n", node->data);
     }
 }
 
 
-void append(Node *node, double data) {
+/*
+ * Append new node to the end of linked list.
+ *
+ * @param node Pointer to pointer of first node in the list
+ * @param data Double value to append to the end of the list
+ */
+void append(Node **node, double data) {
+    
+    if (*node != NULL) {
+        // Case 1: List not empty
+
+        Node *new_node = create(data);
+        Node *temp = *node;
+
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+
+        temp->next = new_node;
+        new_node->prev = temp;
+        return;
+    } else {
+        // Case 2: List empty
+
+        *node = create(data);
+    }
+
+}
+
+
+/*
+ * Insert new node at specified position in list.
+ *
+ * @param node Pointer to pointer of first node in the list
+ * @param data Double value to insert in list
+ * @param pos Index where the new node should be inserted. Zero-based numbering.
+ * 
+ * If node is NULL, creates a new node with data.
+ * length: number of elements in list (One-based)
+ * If pos > length of list, prints "Index out of bounds!"
+ * If pos == length, 'appends' a new node to the end of list.
+ */
+void insert(Node **node, double data, int pos) {
+    /*
+        Insert 'data' at index 'pos' of linked list 'node'. 
+    */
+    if (*node == NULL) {
+        *node = create(data);
+        return;
+    }
+
+    int length = 0;
     Node *new_node = create(data);
+    Node *temp = *node, *target = NULL;
 
-    Node *temp = node;
+    while (temp != NULL) {
+        // Find the length of list(Zero-based numbering) and target node.
 
-    while (temp->next != NULL) {
+        if (length == pos ) {
+            target = temp;
+        }
         temp = temp->next;
+        length++;
     }
 
-    temp->next = new_node;
-    new_node->prev = temp;
-}
+    if (pos > length || pos < 0) {
+        printf("Index (%i) is out of bounds!\n", pos);
+        return;
+    }
+
+    if (pos == 0) {
+        /*  Case 1: Insert at start of list. 
+            Example:
+            list = [12, 23, 56, 19]
+            insert(list, 99, 0)
+            print(list) -> [99, 12, 23, 56, 19]
+        */
+        target->prev = new_node;
+        new_node->next = target;
+        *node = new_node;
+        return;
+    } else if (pos > 0 && pos < length) {
+        /*  Case 2: Insert anywhere in range (0, length). 
+            Example:
+            list = [12, 23, 56, 19]
+            insert(list, 99, 3)
+            print(list) -> [12, 23, 56, 99, 19]
+        */
+        Node *prev = target->prev;
+        new_node->prev = prev;
+        prev->next = new_node;
+        target->prev = new_node;    
+        new_node->next = target;
+        return;
+    } else {
+        // Case 3: Insert exactly at the end.
+        append(node, data);
+    }
+} 
+    
