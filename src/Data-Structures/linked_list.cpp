@@ -9,8 +9,8 @@
  * @param data The double value to store in the node
  * @return Pointer to newly created node
  */
-Node *create(double data) {
-    Node *new_node = (Node*) malloc(sizeof(Node));
+LLNode *ll_create(double data) {
+    LLNode *new_node = (LLNode*) malloc(sizeof(LLNode));
 
     new_node->data = data;
     new_node->prev = NULL;
@@ -27,12 +27,12 @@ Node *create(double data) {
  * Output format: "data1 data2 data3 ..."
  * Prints "List empty." if node is null.
  */
-void print(Node *node) {
+void ll_print(LLNode *node) {
     if (node == NULL) {
         printf("List empty.\n");
     } else if (node->next != NULL) {
         printf("%f ", node->data);
-        print(node->next);
+        ll_print(node->next);
     } else {
         printf("%f \n", node->data);
     }
@@ -45,13 +45,13 @@ void print(Node *node) {
  * @param node Pointer to pointer of first node in the list
  * @param data Double value to append to the end of the list
  */
-void append(Node **node, double data) {
+void ll_append(LLNode **node, double data) {
     
     if (*node != NULL) {
         // Case 1: List not empty
 
-        Node *new_node = create(data);
-        Node *temp = *node;
+        LLNode *new_node = ll_create(data);
+        LLNode *temp = *node;
 
         while (temp->next != NULL) {
             temp = temp->next;
@@ -63,7 +63,7 @@ void append(Node **node, double data) {
     } else {
         // Case 2: List empty
 
-        *node = create(data);
+        *node = ll_create(data);
     }
 
 }
@@ -81,18 +81,18 @@ void append(Node **node, double data) {
  * If pos > length of list, prints "Index out of bounds!"
  * If pos == length, 'appends' a new node to the end of list.
  */
-void insert(Node **node, double data, int pos) {
+void ll_insert(LLNode **node, double data, int pos) {
     /*
         Insert 'data' at index 'pos' of linked list 'node'. 
     */
     if (*node == NULL) {
-        *node = create(data);
+        *node = ll_create(data);
         return;
     }
 
     int length = 0;
-    Node *new_node = create(data);
-    Node *temp = *node, *target = NULL;
+    LLNode *new_node = ll_create(data);
+    LLNode *temp = *node, *target = NULL;
 
     while (temp != NULL) {
         // Find the length of list(Zero-based numbering) and target node.
@@ -127,7 +127,7 @@ void insert(Node **node, double data, int pos) {
             insert(list, 99, 3)
             print(list) -> [12, 23, 56, 99, 19]
         */
-        Node *prev = target->prev;
+        LLNode *prev = target->prev;
         new_node->prev = prev;
         prev->next = new_node;
         target->prev = new_node;    
@@ -135,7 +135,6 @@ void insert(Node **node, double data, int pos) {
         return;
     } else {
         // Case 3: Insert exactly at the end.
-        append(node, data);
+        ll_append(node, data);
     }
 } 
-    

@@ -1,15 +1,14 @@
 #ifndef LINKED_LIST_HPP
 #define LINKED_LIST_HPP
 
-typedef struct Node {
+typedef struct LLNode {
     double data;
-    struct Node *prev, *next;
-} Node;
+    struct LLNode *prev, *next;
+} LLNode;
 
-Node* create(double data);
-
-void print(Node *node);
-void append(Node **node, double data);
-void insert(Node **node, double data, int pos);
+LLNode* ll_create(double data);
+void ll_print(LLNode *node);
+void ll_append(LLNode **node, double data);
+void ll_insert(LLNode **node, double data, int pos);
 
 #endif 
