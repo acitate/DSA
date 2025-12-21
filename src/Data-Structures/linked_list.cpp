@@ -208,3 +208,43 @@ int ll_free(LLNode **node) {
     *node = NULL;
     return 0;
 }
+
+
+/*
+ * Delete a node by its index.
+ *
+ * @param node Pointer to pointer of first node in list
+ * @param pos Index of target node
+ * @return 0 on success, 1 on fail (list empty or index out of bounds.)
+ */
+int ll_delete(LLNode **node, int pos) {
+
+    int length = ll_length(*node);
+    if (node == NULL || pos < 0 || pos >= length) {
+        return 1;
+    }
+
+    LLNode *target;
+    ll_get(*node, pos, &target);
+
+    if (pos == 0) {
+        if (target->next != NULL) {
+            target->next->prev = NULL;
+        }
+        *node = target->next;
+        free(target);
+        return 0;
+
+    } else if (pos > 0 && pos < length - 1) {
+        target->next->prev = target->prev;
+        target->prev->next = target->next;
+
+        free(target); 
+        return 0;
+
+    } else if (pos == length - 1) {
+        target->prev->next = NULL;
+        free(target);
+        return 0;
+    }
+}

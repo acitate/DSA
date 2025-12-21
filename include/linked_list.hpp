@@ -13,5 +13,6 @@ int ll_insert(LLNode **node, double data, int pos);
 int ll_length(LLNode *node);
 int ll_get(LLNode *node, int pos, LLNode **out);
 int ll_free(LLNode **node);
+int ll_delete(LLNode **node, int pos);
 
 #endif 
