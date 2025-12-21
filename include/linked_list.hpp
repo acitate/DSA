@@ -8,7 +8,10 @@ typedef struct LLNode {
 
 LLNode* ll_create(double data);
 void ll_print(LLNode *node);
-void ll_append(LLNode **node, double data);
-void ll_insert(LLNode **node, double data, int pos);
+int ll_append(LLNode **node, double data);
+int ll_insert(LLNode **node, double data, int pos);
+int ll_length(LLNode *node);
+int ll_get(LLNode *node, int pos, LLNode **out);
+int ll_free(LLNode **node);
 
 #endif 
