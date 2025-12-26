@@ -22,10 +22,11 @@ namespace BT {
 
             Node* get_min(Node* curr_root=nullptr);
             Node* get_max(Node* curr_root=nullptr);
+            int get_height(Node* curr_root=nullptr);
 
             Node* search(double value);
-            Node* successor(Node* node);
-            Node* predecessor(Node* node);
+            Node* successor(Node* node=nullptr);
+            Node* predecessor(Node* node=nullptr);
     };
 };
 
