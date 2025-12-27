@@ -1,7 +1,6 @@
 #include <iostream>
 #include <binary_tree.hpp>
 
-using namespace std;
 using namespace BT;
 
 /*
@@ -108,7 +107,7 @@ void BinaryTree::print(Node* curr_root=nullptr) {
     if (!curr_root)
         curr_root = BinaryTree::root;
     print(curr_root->left);
-    cout<<curr_root->value<<" "<<endl;
+    std::cout<<curr_root->value<<" "<<std::endl;
     print(curr_root->right);
 }
 
@@ -166,7 +165,7 @@ int BinaryTree::get_height(Node* curr_root=nullptr) {
     if (curr_root->right)
         height = get_height(curr_root->right);
     if (curr_root->left)
-        height = max(height, get_height(curr_root->left));
+        height = std::max(height, get_height(curr_root->left));
     height++;
 
     return height;
@@ -236,6 +235,7 @@ Node* BinaryTree::predecessor(Node* node=nullptr) {
  * It removes the specified value from the tree, and if the value is not found, it does nothing.
  *
  * @param The specified value
+ * @return 1 If the binary is not empty, otherwise 0
  * 
  * The way this function works is that if the specified node is a leaf, it deletes it directly. 
  * If it has only a left or only a right child, it replaces itself with that child. 
@@ -244,7 +244,7 @@ Node* BinaryTree::predecessor(Node* node=nullptr) {
  * and therefore does not disrupt the binary tree structure.
  * If the count of the specified node is greater than one, it only decreases the count by one.
  */
-void BinaryTree::remove(double value) {
+int BinaryTree::remove(double value) {
     Node* node = search(value);
 
     if (node) {
@@ -277,5 +277,7 @@ void BinaryTree::remove(double value) {
             }
             delete node;
         }
-    }
+        return 1;
+    } else
+        return 0;
 }
