@@ -103,7 +103,7 @@ void BinaryTree::transplant(Node* x, Node* y) {
  *
  * @param curr_root For setting the root of the tree.
  */
-void BinaryTree::print(Node* curr_root=nullptr) {
+void BinaryTree::print(Node* curr_root) {
     if (!curr_root)
         curr_root = BinaryTree::root;
     print(curr_root->left);
@@ -119,7 +119,7 @@ void BinaryTree::print(Node* curr_root=nullptr) {
  * 
  * To find the minimum value, it goes as far left as possible.
  */
-Node* BinaryTree::get_min(Node* curr_root=nullptr) {
+Node* BinaryTree::get_min(Node* curr_root) {
     if (!curr_root)
         curr_root = BinaryTree::root;
     if (!curr_root || !curr_root->left)
@@ -136,7 +136,7 @@ Node* BinaryTree::get_min(Node* curr_root=nullptr) {
  * 
  * To find the maximum value, it goes as far right as possible.
  */
-Node* BinaryTree::get_max(Node* curr_root=nullptr) {
+Node* BinaryTree::get_max(Node* curr_root) {
     if (!curr_root)
         curr_root = BinaryTree::root;
     if (!curr_root || !curr_root->right)
@@ -155,7 +155,7 @@ Node* BinaryTree::get_max(Node* curr_root=nullptr) {
  * Tree height = max(left subtree height, right subtree height) + 1;
  * In other words, the height of a tree is equal to the length of the longest path that leads to a leaf.
  */
-int BinaryTree::get_height(Node* curr_root=nullptr) {
+int BinaryTree::get_height(Node* curr_root) {
     int height = 0;
     if (!BinaryTree::root)
         return height;
@@ -180,7 +180,7 @@ int BinaryTree::get_height(Node* curr_root=nullptr) {
  * The successor is the smallest node in the right subtree of the given node, 
  * and if the node does not have a right subtree, the successor must be found among its parents.
  */
-Node* BinaryTree::successor(Node* node=nullptr) {
+Node* BinaryTree::successor(Node* node) {
     if (!node) {
         node = BinaryTree::root;
         if (!node)
@@ -210,7 +210,7 @@ Node* BinaryTree::successor(Node* node=nullptr) {
  * The predecessor is the biggest node in the left subtree of the given node, 
  * and if the node does not have a left subtree, the predecessor must be found among its parents.
  */
-Node* BinaryTree::predecessor(Node* node=nullptr) {
+Node* BinaryTree::predecessor(Node* node) {
     if (!node) {
         node = BinaryTree::root;
         if (!node)
