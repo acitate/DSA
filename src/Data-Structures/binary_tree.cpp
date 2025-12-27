@@ -1,7 +1,6 @@
 #include <iostream>
 #include <binary_tree.hpp>
 
-using namespace std;
 using namespace BT;
 
 /*
@@ -104,11 +103,11 @@ void BinaryTree::transplant(Node* x, Node* y) {
  *
  * @param curr_root For setting the root of the tree.
  */
-void BinaryTree::print(Node* curr_root=nullptr) {
+void BinaryTree::print(Node* curr_root) {
     if (!curr_root)
         curr_root = BinaryTree::root;
     print(curr_root->left);
-    cout<<curr_root->value<<" "<<endl;
+    std::cout<<curr_root->value<<" "<<std::endl;
     print(curr_root->right);
 }
 
@@ -120,7 +119,7 @@ void BinaryTree::print(Node* curr_root=nullptr) {
  * 
  * To find the minimum value, it goes as far left as possible.
  */
-Node* BinaryTree::get_min(Node* curr_root=nullptr) {
+Node* BinaryTree::get_min(Node* curr_root) {
     if (!curr_root)
         curr_root = BinaryTree::root;
     if (!curr_root || !curr_root->left)
@@ -137,7 +136,7 @@ Node* BinaryTree::get_min(Node* curr_root=nullptr) {
  * 
  * To find the maximum value, it goes as far right as possible.
  */
-Node* BinaryTree::get_max(Node* curr_root=nullptr) {
+Node* BinaryTree::get_max(Node* curr_root) {
     if (!curr_root)
         curr_root = BinaryTree::root;
     if (!curr_root || !curr_root->right)
@@ -156,7 +155,7 @@ Node* BinaryTree::get_max(Node* curr_root=nullptr) {
  * Tree height = max(left subtree height, right subtree height) + 1;
  * In other words, the height of a tree is equal to the length of the longest path that leads to a leaf.
  */
-int BinaryTree::get_height(Node* curr_root=nullptr) {
+int BinaryTree::get_height(Node* curr_root) {
     int height = 0;
     if (!BinaryTree::root)
         return height;
@@ -166,7 +165,7 @@ int BinaryTree::get_height(Node* curr_root=nullptr) {
     if (curr_root->right)
         height = get_height(curr_root->right);
     if (curr_root->left)
-        height = max(height, get_height(curr_root->left));
+        height = std::max(height, get_height(curr_root->left));
     height++;
 
     return height;
@@ -181,7 +180,7 @@ int BinaryTree::get_height(Node* curr_root=nullptr) {
  * The successor is the smallest node in the right subtree of the given node, 
  * and if the node does not have a right subtree, the successor must be found among its parents.
  */
-Node* BinaryTree::successor(Node* node=nullptr) {
+Node* BinaryTree::successor(Node* node) {
     if (!node) {
         node = BinaryTree::root;
         if (!node)
@@ -211,7 +210,7 @@ Node* BinaryTree::successor(Node* node=nullptr) {
  * The predecessor is the biggest node in the left subtree of the given node, 
  * and if the node does not have a left subtree, the predecessor must be found among its parents.
  */
-Node* BinaryTree::predecessor(Node* node=nullptr) {
+Node* BinaryTree::predecessor(Node* node) {
     if (!node) {
         node = BinaryTree::root;
         if (!node)
@@ -236,6 +235,7 @@ Node* BinaryTree::predecessor(Node* node=nullptr) {
  * It removes the specified value from the tree, and if the value is not found, it does nothing.
  *
  * @param The specified value
+ * @return 1 If the binary is not empty, otherwise 0
  * 
  * The way this function works is that if the specified node is a leaf, it deletes it directly. 
  * If it has only a left or only a right child, it replaces itself with that child. 
@@ -244,7 +244,7 @@ Node* BinaryTree::predecessor(Node* node=nullptr) {
  * and therefore does not disrupt the binary tree structure.
  * If the count of the specified node is greater than one, it only decreases the count by one.
  */
-void BinaryTree::remove(double value) {
+int BinaryTree::remove(double value) {
     Node* node = search(value);
 
     if (node) {
@@ -277,5 +277,7 @@ void BinaryTree::remove(double value) {
             }
             delete node;
         }
-    }
+        return 1;
+    } else
+        return 0;
 }

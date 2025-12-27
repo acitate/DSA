@@ -17,7 +17,7 @@ namespace BT {
             void transplant(Node* x, Node* y);
         public:
             void insert(double value);
-            void remove(double value);
+            int remove(double value);
             void print(Node* curr_root=nullptr);
 
             Node* get_min(Node* curr_root=nullptr);
