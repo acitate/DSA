@@ -1,6 +1,37 @@
 #include <iostream>
 #include <binary_tree.hpp>
 
+namespace BT {
+    template <typename T>
+    struct Node {
+        T value;
+        int count = 1;
+        Node<T>* left = nullptr;
+        Node<T>* right = nullptr;
+        Node<T>* parent = nullptr;
+    };
+
+    template <typename T>
+    class BinaryTree {
+        private:
+            Node<T>* root = nullptr;
+
+            void transplant(Node<T>* x, Node<T>* y);
+        public:
+            void insert(T value);
+            int remove(T value);
+            void print(Node<T>* curr_root=nullptr);
+
+            Node<T>* get_min(Node<T>* curr_root=nullptr);
+            Node<T>* get_max(Node<T>* curr_root=nullptr);
+            int get_height(Node<T>* curr_root=nullptr);
+
+            Node<T>* search(T value);
+            Node<T>* successor(Node<T>* node=nullptr);
+            Node<T>* predecessor(Node<T>* node=nullptr);
+    };
+};
+
 using namespace BT;
 
 /*
@@ -11,8 +42,9 @@ using namespace BT;
  * @return If the value is found, a pointer to the node containing this value is returned; 
  * otherwise, a `nullptr` is returned.
  */
-Node* BinaryTree::search(double value) {
-    Node* curr_node = BinaryTree::root;
+template <typename T>
+Node<T>* BinaryTree<T>::search(T value) {
+    Node<T>* curr_node = BinaryTree::root;
 
     while (curr_node->left || curr_node->right) {
         if (curr_node->value == value)
@@ -37,13 +69,14 @@ Node* BinaryTree::search(double value) {
  * and then places the desired value on the left or right side of the found node.
  * If the specified node already exists, it only increments its count.
  */
-void BinaryTree::insert(double value) {
-    Node* parent = BinaryTree::root;
-    Node* node = search(value);
+template <typename T>
+void BinaryTree<T>::insert(T value) {
+    Node<T>* parent = BinaryTree::root;
+    Node<T>* node = search(value);
 
     // First insert in the binary tree
     if (!parent) {
-        node = new Node;
+        node = new Node<T>;
         node->value = value;
         BinaryTree::root = node;
         return;
@@ -66,7 +99,7 @@ void BinaryTree::insert(double value) {
             }
         }
 
-        node = new Node;
+        node = new Node<T>;
         node->value = value;
         node->parent = parent;
 
@@ -86,7 +119,8 @@ void BinaryTree::insert(double value) {
  * 
  * This function only swaps the parents and does not affect the left or right children.
  */
-void BinaryTree::transplant(Node* x, Node* y) {
+template <typename T>
+void BinaryTree<T>::transplant(Node<T>* x, Node<T>* y) {
     if (!x->parent) {
         BinaryTree::root = y;
     } else {
@@ -103,7 +137,8 @@ void BinaryTree::transplant(Node* x, Node* y) {
  *
  * @param curr_root For setting the root of the tree.
  */
-void BinaryTree::print(Node* curr_root) {
+template <typename T>
+void BinaryTree<T>::print(Node<T>* curr_root) {
     if (!curr_root)
         curr_root = BinaryTree::root;
     print(curr_root->left);
@@ -119,7 +154,8 @@ void BinaryTree::print(Node* curr_root) {
  * 
  * To find the minimum value, it goes as far left as possible.
  */
-Node* BinaryTree::get_min(Node* curr_root) {
+template <typename T>
+Node<T>* BinaryTree<T>::get_min(Node<T>* curr_root) {
     if (!curr_root)
         curr_root = BinaryTree::root;
     if (!curr_root || !curr_root->left)
@@ -136,7 +172,8 @@ Node* BinaryTree::get_min(Node* curr_root) {
  * 
  * To find the maximum value, it goes as far right as possible.
  */
-Node* BinaryTree::get_max(Node* curr_root) {
+template <typename T>
+Node<T>* BinaryTree<T>::get_max(Node<T>* curr_root) {
     if (!curr_root)
         curr_root = BinaryTree::root;
     if (!curr_root || !curr_root->right)
@@ -155,7 +192,8 @@ Node* BinaryTree::get_max(Node* curr_root) {
  * Tree height = max(left subtree height, right subtree height) + 1;
  * In other words, the height of a tree is equal to the length of the longest path that leads to a leaf.
  */
-int BinaryTree::get_height(Node* curr_root) {
+template <typename T>
+int BinaryTree<T>::get_height(Node<T>* curr_root) {
     int height = 0;
     if (!BinaryTree::root)
         return height;
@@ -180,13 +218,14 @@ int BinaryTree::get_height(Node* curr_root) {
  * The successor is the smallest node in the right subtree of the given node, 
  * and if the node does not have a right subtree, the successor must be found among its parents.
  */
-Node* BinaryTree::successor(Node* node) {
+template <typename T>
+Node<T>* BinaryTree<T>::successor(Node<T>* node) {
     if (!node) {
         node = BinaryTree::root;
         if (!node)
             return nullptr;
     }
-    Node* node_succ = nullptr;
+    Node<T>* node_succ = nullptr;
     
     if (node->right)
         node_succ = get_min(node->right);
@@ -210,13 +249,14 @@ Node* BinaryTree::successor(Node* node) {
  * The predecessor is the biggest node in the left subtree of the given node, 
  * and if the node does not have a left subtree, the predecessor must be found among its parents.
  */
-Node* BinaryTree::predecessor(Node* node) {
+template <typename T>
+Node<T>* BinaryTree<T>::predecessor(Node<T>* node) {
     if (!node) {
         node = BinaryTree::root;
         if (!node)
             return nullptr;
     }
-    Node* node_predec = nullptr;
+    Node<T>* node_predec = nullptr;
     
     if (node->left)
         node_predec = get_max(node->right);
@@ -244,8 +284,9 @@ Node* BinaryTree::predecessor(Node* node) {
  * and therefore does not disrupt the binary tree structure.
  * If the count of the specified node is greater than one, it only decreases the count by one.
  */
-int BinaryTree::remove(double value) {
-    Node* node = search(value);
+template <typename T>
+int BinaryTree<T>::remove(T value) {
+    Node<T>* node = search(value);
 
     if (node) {
         if (node->count > 1)
@@ -256,7 +297,7 @@ int BinaryTree::remove(double value) {
             else if (!node->left && node->right)
                 transplant(node, node->right);
             else if (node->left && node->right) {
-                Node* node_succ = get_min(node->right);
+                Node<T>* node_succ = get_min(node->right);
 
                 if (node->right != node_succ) {
                     transplant(node_succ, node_succ->right);
