@@ -15,3 +15,10 @@ Basic implementaion of various data structures in C++.
   - [ ]  Implement 'queue_dequeue' function.
   - [ ]  Implement 'queue_peek' function.
   - [ ]  Implement 'queue_length' function.
+- [X] Define priority queue data structure.
+  - [X] Implement 'min_heapify' function.
+  - [X] Implement 'max_heapify' function.
+  - [ ] Implement 'get_item' function.
+  - [X] Implement 'insert_item' function.
+  - [X] Implement 'remove_item' function.
+  - [ ] Implement 'edit_item' function.
