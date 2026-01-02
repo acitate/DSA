@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <linked_list.hpp>
+#include <linked_list.h>
 
 
 /*
@@ -9,7 +9,7 @@
  * @param data The double value to store in the node
  * @return Pointer to newly created node
  */
-LLNode *ll_create(double data) {
+LLNode *ll_create(void *data) {
     LLNode *new_node = (LLNode*) malloc(sizeof(LLNode));
 
     new_node->data = data;
@@ -20,33 +20,13 @@ LLNode *ll_create(double data) {
 
 
 /*
- * Print all data in list from given head to tail
- *
- * @param node Pointer to first node in the list
- * 
- * Output format: "data1 data2 data3 ..."
- * Prints "List empty." if node is null.
- */
-void ll_print(LLNode *node) {
-    if (node == NULL) {
-        printf("List empty.\n");
-    } else if (node->next != NULL) {
-        printf("%f ", node->data);
-        ll_print(node->next);
-    } else {
-        printf("%f \n", node->data);
-    }
-}
-
-
-/*
  * Append new node to the end of linked list.
  *
  * @param node Pointer to pointer of first node in the list
  * @param data Double value to append to the end of the list
  * @return 0 on success, 1 on fail.
  */
-int ll_append(LLNode **node, double data) {
+int ll_append(LLNode **node, void *data) {
     
     if (*node != NULL) {
         // Case 1: List not empty
@@ -84,7 +64,7 @@ int ll_append(LLNode **node, double data) {
  * If pos > length of list, prints "Index out of bounds!"
  * If pos == length, 'appends' a new node to the end of list.
  */
-int ll_insert(LLNode **node, double data, int pos) {
+int ll_insert(LLNode **node, void *data, int pos) {
     /*
         Insert 'data' at index 'pos' of linked list 'node'. 
     */
