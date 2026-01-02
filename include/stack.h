@@ -8,13 +8,14 @@ extern "C" {
 
 typedef struct Stack
 {
-    int top;
     LLNode *list;
 } Stack;
 
 Stack *stack_create(void *data);
 int stack_push(Stack **stack, void *data);
-void *stack_peek(Stack *stack);
+int stack_peek(Stack *stack, void **out);
+int stack_pop(Stack **stack, void **out);
+int stack_size(Stack *stack);
 
 #ifdef __cplusplus
 }

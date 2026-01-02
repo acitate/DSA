@@ -5,10 +5,10 @@ Basic implementaion of various data structures in C++.
 - [X] Define stack data structure.
   - [X] Implement 'stack_create' function.
   - [X] Implement 'stack_push' function.
-  - [ ] Implement 'stack_peek' function.
-  - [ ] Implement 'stack_pop' function.
+  - [X] Implement 'stack_peek' function.
+  - [X] Implement 'stack_pop' function.
   - [ ] Implement 'stack_is_empty' function.
-  - [ ] Implement 'stack_size' function.
+  - [X] Implement 'stack_size' function.
 - [ ]  Define queue data structure.
   - [ ]  Implement 'queue_create' function.
   - [ ]  Implement 'queue_enqueue' function.
