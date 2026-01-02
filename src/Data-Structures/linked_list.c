@@ -6,7 +6,7 @@
 /*
  * Create new node with given data.
  *
- * @param data The double value to store in the node
+ * @param data Pointer to value to store in the node
  * @return Pointer to newly created node
  */
 LLNode *ll_create(void *data) {
@@ -23,7 +23,7 @@ LLNode *ll_create(void *data) {
  * Append new node to the end of linked list.
  *
  * @param node Pointer to pointer of first node in the list
- * @param data Double value to append to the end of the list
+ * @param data Pointer to value to append to the end of the list
  * @return 0 on success, 1 on fail.
  */
 int ll_append(LLNode **node, void *data) {
@@ -55,7 +55,7 @@ int ll_append(LLNode **node, void *data) {
  * Insert new node at specified position in list.
  *
  * @param node Pointer to pointer of first node in the list
- * @param data Double value to insert in list
+ * @param data Pointer to value to insert in list
  * @param pos Index where the new node should be inserted. Zero-based numbering
  * @return 0 on success, 1 if index out of bounds
  * 
@@ -73,19 +73,10 @@ int ll_insert(LLNode **node, void *data, int pos) {
         return 0;
     }
 
-    int length = 0;
+    int length = ll_length(*node);
     LLNode *new_node = ll_create(data);
-    LLNode *temp = *node, *target = NULL;
-
-    while (temp != NULL) {
-        // Find the length of list(Zero-based numbering) and target node.
-
-        if (length == pos ) {
-            target = temp;
-        }
-        temp = temp->next;
-        length++;
-    }
+    LLNode *target;
+    ll_get(*node, pos, &target);
 
     if (pos > length || pos < 0) {
         printf("Index (%i) is out of bounds!\n", pos);
@@ -127,7 +118,7 @@ int ll_insert(LLNode **node, void *data, int pos) {
  * Get number of elements in the linked list.
  *
  * @param node Pointer to first node in the linked list
- * @return Integer number of elements in list
+ * @return Number of elements in list
  */
 int ll_length(LLNode *node) {
     int length = 0;

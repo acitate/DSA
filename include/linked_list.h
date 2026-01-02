@@ -15,7 +15,6 @@ typedef struct LLNode {
 } LLNode;
 
 LLNode* ll_create(void *data);
-void ll_print(LLNode *node, void (*print_func)(void*));
 int ll_append(LLNode **node, void *data);
 int ll_insert(LLNode **node, void *data, int pos);
 int ll_length(LLNode *node);
