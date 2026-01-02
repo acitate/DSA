@@ -2,9 +2,9 @@ Basic implementaion of various data structures in C++.
 
 
 ## Todo
-- [ ] Define stack data structure.
-  - [ ] Implement 'stack_create' function.
-  - [ ] Implement 'stack_push' function.
+- [X] Define stack data structure.
+  - [X] Implement 'stack_create' function.
+  - [X] Implement 'stack_push' function.
   - [ ] Implement 'stack_peek' function.
   - [ ] Implement 'stack_pop' function.
   - [ ] Implement 'stack_is_empty' function.
