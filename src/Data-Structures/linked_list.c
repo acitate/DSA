@@ -25,9 +25,16 @@ LLNode *ll_create(void *data) {
  * @param node Pointer to pointer of first node in the list
  * @param data Pointer to value to append to the end of the list
  * @return 0 on success, 1 on fail.
+ * 
+ * If node is NULL initializes a new list.
  */
 int ll_append(LLNode **node, void *data) {
-    
+
+    if (data == NULL) {
+        fprintf(stderr, "Data is NULL!\n");
+        return 1;
+    }
+
     if (*node != NULL) {
         // Case 1: List not empty
 
@@ -57,7 +64,7 @@ int ll_append(LLNode **node, void *data) {
  * @param node Pointer to pointer of first node in the list
  * @param data Pointer to value to insert in list
  * @param pos Index where the new node should be inserted. Zero-based numbering
- * @return 0 on success, 1 if index out of bounds
+ * @return 0 on success, 1 if index out of bounds or data is null
  * 
  * If node is NULL, creates a new node with data.
  * length: number of elements in list (One-based)
@@ -65,9 +72,12 @@ int ll_append(LLNode **node, void *data) {
  * If pos == length, 'appends' a new node to the end of list.
  */
 int ll_insert(LLNode **node, void *data, int pos) {
-    /*
-        Insert 'data' at index 'pos' of linked list 'node'. 
-    */
+    
+    if (data == NULL) {
+        fprintf(stderr, "Data is NULL!\n");
+        return 1;
+    }
+
     if (*node == NULL) {
         *node = ll_create(data);
         return 0;
@@ -79,7 +89,7 @@ int ll_insert(LLNode **node, void *data, int pos) {
     ll_get(*node, pos, &target);
 
     if (pos > length || pos < 0) {
-        printf("Index (%i) is out of bounds!\n", pos);
+        fprintf(stderr, "Index (%i) is out of bounds!\n", pos);
         return 1;
     }
 
@@ -140,9 +150,16 @@ int ll_length(LLNode *node) {
  * @param out Pointer to pointer of node where the retrieved node is to be stored
  */
 int ll_get(LLNode *node, int pos, LLNode **out) {
+
+    if (out == NULL) {
+        fprintf(stderr, "Out pointer in NULL!\n");
+        return 1;
+    }
+
     int length = ll_length(node);
 
     if (pos >= length || pos < 0) {
+        fprintf(stderr, "Index (%i) is out of bounds!\n", pos);
         return 1;
     }
     
@@ -165,6 +182,7 @@ int ll_get(LLNode *node, int pos, LLNode **out) {
  */
 int ll_free(LLNode **node) {
     if (node == NULL || *node == NULL) {
+        fprintf(stderr, "Node is NULL or points to NULL!\n");
         return 1;
     }
 
@@ -190,8 +208,15 @@ int ll_free(LLNode **node) {
  */
 int ll_delete(LLNode **node, int pos) {
 
+    if (node == NULL || *node == NULL) {
+        fprintf(stderr, "Node is NULL or points to NULL!\n");
+        return 1;
+    }
+
     int length = ll_length(*node);
-    if (node == NULL || pos < 0 || pos >= length) {
+
+    if (pos < 0 || pos >= length) {
+        fprintf(stderr, "Index (%i) out of bounds!\n", pos);
         return 1;
     }
 
