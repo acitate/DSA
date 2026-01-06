@@ -1,11 +1,11 @@
-#include <stack.h>
+#include <ll_stack.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <linked_list.h>
 
 
-Stack *stack_create(void *data) {
-    Stack *new_stack = (Stack*) malloc(sizeof(Stack));
+LLStack *stack_ll_create(void *data) {
+    LLStack *new_stack = (LLStack*) malloc(sizeof(LLStack));
 
     new_stack->list = ll_create(data);
 
@@ -13,7 +13,7 @@ Stack *stack_create(void *data) {
 }
 
 
-int stack_push(Stack **stack, void *data) {
+int stack_ll_push(LLStack **stack, void *data) {
     if (stack == NULL || *stack == NULL) {
         fprintf(stderr ,"Stack is NULL!\n");
         return 1;
@@ -28,7 +28,7 @@ int stack_push(Stack **stack, void *data) {
 }
 
 
-int stack_peek(Stack *stack, void **out) {
+int stack_ll_peek(LLStack *stack, void **out) {
     if (stack == NULL) {
         fprintf(stderr, "Stack is NULL!\n");
         return 1;
@@ -47,7 +47,7 @@ int stack_peek(Stack *stack, void **out) {
 } 
 
 
-int stack_pop(Stack **stack, void **out) {
+int stack_ll_pop(LLStack **stack, void **out) {
 
     if (stack == NULL || *stack == NULL) {
         fprintf(stderr, "Stack is NULL!\n");
@@ -66,6 +66,6 @@ int stack_pop(Stack **stack, void **out) {
 }
 
 
-int stack_size(Stack *stack) {
+int stack_ll_size(LLStack *stack) {
     return ll_length(stack->list);
 }
